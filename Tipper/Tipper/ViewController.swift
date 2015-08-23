@@ -18,8 +18,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tipLabel.text = "$0.00"
-        totalLabel.text = "$0.00"
+        var numFormatter = NSNumberFormatter()
+        numFormatter.numberStyle = .CurrencyStyle
+        tipLabel.text = numFormatter.stringFromNumber(0)
+        totalLabel.text =  numFormatter.stringFromNumber(0)
+        billText.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,9 +36,12 @@ class ViewController: UIViewController {
         var billAmount = (billText.text as NSString).doubleValue
         var tip = tipPercentage * billAmount
         var total = billAmount + tip
-
-        totalLabel.text = String(format: "$%.2f", total)
-        tipLabel.text = String(format: "$%.2f", tip)
+        
+        var numFormatter = NSNumberFormatter()
+        numFormatter.numberStyle = .CurrencyStyle
+        tipLabel.text = numFormatter.stringFromNumber(tip)
+        totalLabel.text =  numFormatter.stringFromNumber(total)
+       
     }
 
     @IBAction func onTap(sender: AnyObject) {
